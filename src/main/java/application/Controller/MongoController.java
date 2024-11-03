@@ -1,6 +1,7 @@
 package application.Controller;
 
 import application.CRUD.HibernateCRUD;
+import application.CRUD.MongoCRUD;
 import application.Model.Coche;
 import application.Model.Tipo;
 import application.Utils.AlertUtils;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class HibernateController implements Initializable, ControllerImpl {
+public class MongoController implements Initializable, ControllerImpl{
     public AnchorPane concesionario;
     // Implemento la clase Initializable para cargar tanto la tabla y el combox con los datos.
     @FXML
@@ -38,7 +39,7 @@ public class HibernateController implements Initializable, ControllerImpl {
     @FXML
     private TableColumn<Coche, String> tcMatricula, tcMarca, tcModelo, tcTipo;
 
-    HibernateCRUD crud;
+    MongoCRUD crud;
     List<Coche> coches;
     Coche cocheSeleccionado = null;
 
@@ -53,9 +54,9 @@ public class HibernateController implements Initializable, ControllerImpl {
         tcTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
     }
 
-    public HibernateController() {
+    public MongoController() {
         // Creo un constructor en el que instancio el crud para acceder a la funcionalidad del crud.
-        crud = new HibernateCRUD();
+        crud = new MongoCRUD();
     }
 
 

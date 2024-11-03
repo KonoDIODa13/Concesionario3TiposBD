@@ -7,12 +7,12 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class CocheDAOHibernate implements CocheDAOImpl {
+public class HibernateDAO implements CocheDAOImpl {
     private SessionFactory factory;
     private Session session;
 
     // Creo la conexión y recogo los datos de dicha conexión (el factory y la session).
-    public CocheDAOHibernate() {
+    public HibernateDAO() {
         ConexionHibernate.conexion();
         factory = ConexionHibernate.getFactory();
         session = ConexionHibernate.getSession();
@@ -59,7 +59,6 @@ public class CocheDAOHibernate implements CocheDAOImpl {
     /*
     Busco un Coche según la matricula (realizara un: select * from Coche where matricula="?").
     */
-    @Override
     public Coche buscarCoche(int id) {
         Coche coche;
         coche = (Coche) session.get(Coche.class, id);

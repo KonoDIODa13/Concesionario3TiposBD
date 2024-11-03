@@ -19,11 +19,12 @@ public class InicioController {
 
     @FXML
     public void btnMongo(ActionEvent event) {
-
+        CambioEscenas.cambioEscena("concesionarioMongo.fxml", paneInicio);
     }
 
     @FXML
     public void btnMysql(ActionEvent event) {
+        CambioEscenas.cambioEscena("concesionarioMYSQL.fxml", paneInicio);
 
     }
 

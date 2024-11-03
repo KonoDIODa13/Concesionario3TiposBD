@@ -14,11 +14,12 @@ public interface CocheDAOImpl {
 
     void insertarCoche(Coche coche);
 
-    Coche buscarCoche(int id);
 
     List<Coche> getCoches();
 
     void modificarCoche(Coche coche);
 
     void eliminarCoche(Coche coche);
+
+    //Coche buscarCoche(int id);
 }

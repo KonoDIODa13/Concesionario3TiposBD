@@ -1,20 +1,21 @@
 package application.CRUD;
 
 
-import application.DAO.CocheDAOHibernate;
+import application.DAO.MongoDAO;
 import application.Model.Coche;
 import application.Utils.AlertUtils;
 
 import java.util.List;
 
-public class CocheCRUDHibernate implements CocheCRUDImpl {
+public class MongoCRUD implements CocheCRUDImpl{
 
-    CocheDAOHibernate dao;
+    MongoDAO dao;
     List<Coche> coches;
 
-    public CocheCRUDHibernate() {
+    public MongoCRUD() {
         // Al crear el CocheCrud, instancio el CocheDao para realizarlo solo una vez y realizar la conexión a la bd
-        dao = new CocheDAOHibernate();
+        dao = new MongoDAO();
+        dao.conectarBD();
     }
 
     public void desconectar() {
@@ -56,16 +57,18 @@ public class CocheCRUDHibernate implements CocheCRUDImpl {
 
     public boolean modificarCoche(List<String> campos, Coche antiguoCoche) {
         /*
-        Este metodo, al igual que el de insertar coche, compruebo los campos que voy a meter.
-        Por último, llamamos al la función modificarCoche.
+        Este metodo, al igual que el de insertar coche, compruebo los campos que voy a meter y si el coche que voy a
+        meter esta ya en la bd. Realizao una comprobación si existe un coche con la matrícula que se intenta modificar
+        salvando la del propio vehiculo que queremos modificar. Por último, llamamos al la función modificarCoche.
          */
         if (comprobaciones(campos)) return false;
-        Coche coche = dao.buscarCoche(antiguoCoche.getId());
-        coche.setMatricula(campos.get(0));
-        coche.setMarca(campos.get(1));
-        coche.setModelo(campos.get(2));
-        coche.setTipo(campos.get(3));
-        dao.modificarCoche(coche);
+
+        antiguoCoche.setMatricula(campos.get(0));
+        antiguoCoche.setMarca(campos.get(1));
+        antiguoCoche.setModelo(campos.get(2));
+        antiguoCoche.setTipo(campos.get(3));
+
+        dao.modificarCoche(antiguoCoche);
         return true;
     }
 

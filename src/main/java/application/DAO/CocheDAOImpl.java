@@ -2,6 +2,7 @@ package application.DAO;
 
 import application.Model.Coche;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -12,14 +13,14 @@ public interface CocheDAOImpl {
 
     void desconectarBD();
 
-    void insertarCoche(Coche coche);
+    void insertarCoche(Coche coche) throws SQLException;
 
 
-    List<Coche> getCoches();
+    List<Coche> getCoches() throws SQLException;
 
-    void modificarCoche(Coche coche);
+    void modificarCoche(Coche coche) throws SQLException;
 
-    void eliminarCoche(Coche coche);
+    void eliminarCoche(Coche coche) throws SQLException;
 
     //Coche buscarCoche(int id);
 }

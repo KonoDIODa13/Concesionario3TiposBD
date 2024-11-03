@@ -17,7 +17,7 @@ public class ConexionMongo {
     public static MongoClient conectar() {
         try {
             Properties configuration = new Properties();
-            configuration.load(R.getProperties("database.properties"));
+            configuration.load(R.getProperties("mongoDatabase.properties"));
             String username = configuration.getProperty("username");
             String password = configuration.getProperty("password");
             String port = configuration.getProperty("port");

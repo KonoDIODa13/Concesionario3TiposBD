@@ -40,13 +40,15 @@ public class MYSQLDAO implements CocheDAOImpl {
     */
     @Override
     public void insertarCoche(Coche coche) throws SQLException {
-        String insertVehiculo = "INSERT INTO coche (Matricula, Marca, Modelo, Tipo) VALUES (?, ?, ?, ?)";
-        PreparedStatement sentencia = conexion.prepareStatement(insertVehiculo);
+        int id = creaIDCoche();
+        String sql = "INSERT INTO coche (Id, Matricula, Marca, Modelo, Tipo) VALUES (? ,?, ?, ?, ?)";
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
 
-        sentencia.setString(1, coche.getMatricula());
-        sentencia.setString(2, coche.getMarca());
-        sentencia.setString(3, coche.getModelo());
-        sentencia.setString(4, coche.getTipo());
+        sentencia.setInt(1, id);
+        sentencia.setString(2, coche.getMatricula());
+        sentencia.setString(3, coche.getMarca());
+        sentencia.setString(4, coche.getModelo());
+        sentencia.setString(5, coche.getTipo());
 
         sentencia.executeUpdate();
     }
@@ -58,15 +60,14 @@ public class MYSQLDAO implements CocheDAOImpl {
     public void modificarCoche(Coche coche) throws SQLException {
         String sql = "UPDATE coche SET Matricula= ?, Marca= ?, Modelo= ? ,Tipo= ? WHERE id= ?";
         PreparedStatement sentencia = conexion.prepareStatement(sql);
+
         sentencia.setString(1, coche.getMatricula());
         sentencia.setString(2, coche.getMarca());
         sentencia.setString(3, coche.getModelo());
         sentencia.setString(4, coche.getTipo());
         sentencia.setInt(5, coche.getId());
-        System.out.println(coche.getId());
-        //sentencia.executeUpdate();
-        System.out.println(sentencia.executeUpdate());
 
+        sentencia.executeUpdate();
     }
 
     /*
@@ -99,28 +100,18 @@ public class MYSQLDAO implements CocheDAOImpl {
             String marca = resultado.getString(3);
             String modelo = resultado.getString(4);
             String tipo = resultado.getString(5);
-            Coche coche = new Coche(matricula, marca, modelo, tipo);
+            Coche coche = new Coche(id, matricula, marca, modelo, tipo);
             coches.add(coche);
             System.out.println(coche.getId());
         }
         return coches;
     }
 
-    public int getId(String matricula) throws SQLException {
-        int id = -1;
 
-        // consigo el id del vehiculo cuya matricula paso por parametro.
-        String sql = "SELECT Id FROM Vehiculo WHERE Matricula= ?";
+    public int creaIDCoche() throws SQLException {
+        return getCoches().size() + 1;
 
-        PreparedStatement sentencia = conexion.prepareStatement(sql);
-        sentencia.setString(1, matricula);
-        ResultSet resultado = sentencia.executeQuery();
-
-        while (resultado.next()) {
-            id = resultado.getInt(1);
-        }
-
-        return id;
     }
+
 
 }

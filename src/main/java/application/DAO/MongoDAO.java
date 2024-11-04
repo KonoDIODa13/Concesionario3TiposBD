@@ -54,6 +54,7 @@ public class MongoDAO implements CocheDAOImpl {
         try {
             while (cursor.hasNext()) {
                 Coche coche = gson.fromJson(cursor.next().toJson(), Coche.class);
+                System.out.println(coche);
                 coches.add(coche);
             }
             return coches;

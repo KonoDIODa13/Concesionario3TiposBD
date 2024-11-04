@@ -25,12 +25,21 @@ public class Coche {
     public Coche() {
     }
 
+    public Coche(int id, String matricula, String marca, String modelo, String tipo) {
+        this.id = id;
+        this.matricula = matricula;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.tipo = tipo;
+    }
+
     public Coche(String matricula, String marca, String modelo, String tipo) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
     }
+
 
     public String getMatricula() {
         return matricula;

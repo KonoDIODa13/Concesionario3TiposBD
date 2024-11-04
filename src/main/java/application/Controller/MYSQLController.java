@@ -161,7 +161,6 @@ public class MYSQLController implements Initializable, ControllerImpl {
         // Metodo que selecciona el coche en la tabla.
         try {
             cocheSeleccionado = tvCoches.getSelectionModel().getSelectedItem();
-            System.out.println(cocheSeleccionado.getId());
             cargarData();
         } catch (NullPointerException e) {
             AlertUtils.mostrarError("No has seleccionado ningun dato.\n");

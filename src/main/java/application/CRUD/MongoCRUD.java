@@ -7,7 +7,7 @@ import application.Utils.AlertUtils;
 
 import java.util.List;
 
-public class MongoCRUD implements CocheCRUDImpl{
+public class MongoCRUD implements CocheCRUDImpl {
 
     MongoDAO dao;
     List<Coche> coches;
@@ -30,6 +30,7 @@ public class MongoCRUD implements CocheCRUDImpl{
          */
 
         coches = dao.getCoches();
+        coches.forEach(Coche::toString);
         return coches;
     }
 
@@ -41,8 +42,8 @@ public class MongoCRUD implements CocheCRUDImpl{
         que queremos añadir. Por último, llamará al metodo de CochesDAO de insertarCoche.
          */
         if (comprobaciones(campos)) return false;
-
-        Coche coche = new Coche(campos.get(0), campos.get(1), campos.get(2), campos.get(3));
+        int id = creaIDCoche();
+        Coche coche = new Coche(id, campos.get(0), campos.get(1), campos.get(2), campos.get(3));
         if (coches.contains(coche)) {
             AlertUtils.mostrarError("el coche ya esta en la bd.");
             return false;
@@ -94,5 +95,9 @@ public class MongoCRUD implements CocheCRUDImpl{
             bool = true;
         }
         return bool;
+    }
+
+    public int creaIDCoche() {
+        return getCoches().size() + 1;
     }
 }
